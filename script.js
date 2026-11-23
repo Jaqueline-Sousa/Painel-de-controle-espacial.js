@@ -116,11 +116,40 @@ autenticar.addEventListener('click', () => {
 })
 
 // parte 8
-
+const display = document.querySelector("#display-temperatura")
 const valorTemp = document.querySelector("#valor-temp")
 const btnAquecer = document.querySelector("#btn-aquecer")
 const btnResfriar = document.querySelector("#btn-resfriar")
 
-let temperatura = 20
-let intervaloTemperatura
+
+let temperatura = 20;
+btnAquecer.addEventListener('click' , ()=> {
+
+    
+
+    let contador = setInterval( () => {
+        valorTemp.textContent = temperatura
+        temperatura += 5
+    
+        if (temperatura > 80){
+    
+            display.classList.add("perigo-critico")
+           
+        }
+        if (temperatura > 95) {
+            display.textContent = "TEMPERATURA " +temperatura +" Explosão Iminente°C" 
+            clearInterval(contador)
+        }
+    },500)
+
+    
+
+})
+
+    btnResfriar.addEventListener("click" , ()=>{
+        clearInterval(contador)
+        display.textContent  = "TEMPERATURA " +temperatura +" Explosão Iminente°C"
+    }) 
+
+
 
