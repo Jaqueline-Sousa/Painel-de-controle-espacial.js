@@ -123,33 +123,43 @@ const btnResfriar = document.querySelector("#btn-resfriar")
 
 
 let temperatura = 20;
+let contador
 btnAquecer.addEventListener('click' , ()=> {
 
-    
+    btnAquecer.disabled = true
 
-    let contador = setInterval( () => {
+    contador = setInterval( () => {
         valorTemp.textContent = temperatura
         temperatura += 5
     
-        if (temperatura > 80){
+        if (temperatura >= 80){
     
             display.classList.add("perigo-critico")
            
         }
-        if (temperatura > 95) {
-            display.textContent = "TEMPERATURA " +temperatura +" Explosão Iminente°C" 
+        if (temperatura >= 100) {
             clearInterval(contador)
+            valorTemp.textContent =  temperatura + "Explosão Iminente°C" 
+            btnResfriar.disabled = false   
         }
     },500)
 
-    
-
 })
 
-    btnResfriar.addEventListener("click" , ()=>{
+btnResfriar.addEventListener('click',() => {
+
+contador = setInterval(() => {
+    temperatura -= 5
+    valorTemp.textContent = temperatura
+    if(temperatura == 20){
         clearInterval(contador)
-        display.textContent  = "TEMPERATURA " +temperatura +" Explosão Iminente°C"
-    }) 
+        valorTemp.textContent = temperatura
+        display.classList.remove('perigo-critico')
+        btnAquecer.disabled = false
+    }
+    },500)
 
+btnResfriar.disabled = true
 
+})
 
